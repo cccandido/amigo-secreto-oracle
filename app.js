@@ -57,3 +57,10 @@ function sortearAmigo() {
   ulResultado.innerHTML = `<li>Amigo sorteado: ${sorteado}</li>`;
 }
 
+function reiniciarJogo() {
+    listaAmigos = []; // limpa a lista
+    document.getElementById("listaAmigos").innerHTML = "";
+    document.getElementById("resultado").innerHTML = "";
+    alert("Jogo reiniciado!");
+}
+
