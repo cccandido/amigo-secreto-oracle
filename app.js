@@ -1,45 +1,59 @@
 // Array para guardar os amigos
 let listaAmigos = [];
 
+// Pega o input
+const input = document.getElementById("amigo");
+
 // Adiciona amigo na lista
 function adicionarAmigo() {
-    const input = document.getElementById("amigo");
-    const nome = input.value.trim();
-
-    if (nome === "") {
-        alert("Digite um nome válido!");
-        return;
-    }
-
-    listaAmigos.push(nome);
-    atualizarLista();
-
-    input.value = ""; // limpa campo
+  const nome = input.value.trim();
+  if (!nome) {
+    alert("Digite um nome válido!");
     input.focus();
+    return;
+  }
+
+  const jaExiste = listaAmigos
+    .map(n => n.toLowerCase())
+    .includes(nome.toLowerCase());
+
+  if (jaExiste) {
+    alert("Esse nome já está na lista.");
+    input.focus();
+    return;
+  }
+
+  listaAmigos.push(nome);
+  atualizarLista();
+  input.value = "";
+  input.focus();
+  // limpa resultado anterior, se houver
+  document.getElementById("resultado").innerHTML = "";
 }
 
-// Atualiza visualização da lista
+// Visualiza a lista de amigos
 function atualizarLista() {
-    const ul = document.getElementById("listaAmigos");
-    ul.innerHTML = "";
+  const ul = document.getElementById("listaAmigos");
+  ul.innerHTML = "";
 
-    listaAmigos.forEach(amigo => {
-        const li = document.createElement("li");
-        li.textContent = amigo;
-        ul.appendChild(li);
-    });
+  listaAmigos.forEach(amigo => {
+    const li = document.createElement("li");
+    li.textContent = amigo;
+    ul.appendChild(li);
+  });
 }
 
-// Sorteia um amigo da lista
+// Sorteia um amigo
 function sortearAmigo() {
-    if (listaAmigos.length === 0) {
-        alert("Adicione pelo menos um amigo antes de sortear!");
-        return;
-    }
+  if (listaAmigos.length === 0) {
+    alert("Adicione pelo menos um amigo antes de sortear!");
+    return;
+  }
 
-    const indice = Math.floor(Math.random() * listaAmigos.length);
-    const sorteado = listaAmigos[indice];
+  const indice = Math.floor(Math.random() * listaAmigos.length);
+  const sorteado = listaAmigos[indice];
 
-    const ulResultado = document.getElementById("resultado");
-    ulResultado.innerHTML = `<li>Amigo sorteado: ${sorteado}</li>`;
+  const ulResultado = document.getElementById("resultado");
+  ulResultado.innerHTML = `<li>Amigo sorteado: ${sorteado}</li>`;
 }
+
